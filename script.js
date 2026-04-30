@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
         titleBar.style.cursor = 'grab';
 
         titleBar.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.os-controls') || win.classList.contains('maximized')) return;
+
             isDragging = true;
             win.style.zIndex = zIndexCounter++;
             titleBar.style.cursor = 'grabbing';
@@ -48,6 +50,59 @@ document.addEventListener("DOMContentLoaded", () => {
                 win.style.transition = 'transform 0.2s, border-color 0.2s';
             }
         });
+
+        // -----------------------------------------
+        // Linux-like window controls (Min/Max/Close)
+        // -----------------------------------------
+        const controlsContainer = win.querySelector('.os-controls');
+        if (controlsContainer) {
+            controlsContainer.innerHTML = `
+                <span class="ctrl-min" style="cursor:pointer" title="Minimizar">_</span>
+                <span class="ctrl-max" style="cursor:pointer" title="Maximizar">◻</span>
+                <span class="ctrl-close" style="cursor:pointer" title="Cerrar">✕</span>
+            `;
+
+            const content = win.querySelector('.os-content');
+            
+            // Minimize
+            controlsContainer.querySelector('.ctrl-min').addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (content.style.display === 'none') {
+                    content.style.display = 'block';
+                    win.style.height = 'auto';
+                } else {
+                    content.style.display = 'none';
+                    win.style.height = 'auto';
+                }
+            });
+
+            // Maximize
+            controlsContainer.querySelector('.ctrl-max').addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (win.classList.contains('maximized')) {
+                    win.classList.remove('maximized');
+                    win.style.position = 'relative';
+                    win.style.left = '0';
+                    win.style.top = '0';
+                    win.style.width = 'auto';
+                    win.style.height = 'auto';
+                } else {
+                    win.classList.add('maximized');
+                    win.style.position = 'fixed';
+                    win.style.left = '5vw';
+                    win.style.top = '5vh';
+                    win.style.width = '90vw';
+                    win.style.height = '90vh';
+                    win.style.zIndex = zIndexCounter++;
+                }
+            });
+
+            // Close
+            controlsContainer.querySelector('.ctrl-close').addEventListener('click', (e) => {
+                e.stopPropagation();
+                win.style.display = 'none';
+            });
+        }
     });
 
     // Lightbox Functionality

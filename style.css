@@ -87,7 +87,8 @@ body {
   border-radius: 4px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.8);
   backdrop-filter: blur(8px);
-  overflow: hidden;
+  overflow: auto;
+  resize: both;
   transition: transform 0.2s, border-color 0.2s;
 }
 
@@ -349,7 +350,12 @@ body {
 @media (max-width: 768px) {
   .desktop-container {
     grid-template-columns: 1fr;
-    padding: 1.5rem 1rem;
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .col-left, .col-center, .col-right {
+    gap: 1.5rem;
   }
 
   .project-item {
@@ -366,7 +372,7 @@ body {
 
 @media (max-width: 480px) {
   .hero-name {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   .cert-grid {
@@ -375,6 +381,24 @@ body {
   
   .os-content {
     padding: 1rem;
+  }
+
+  .os-bar {
+    padding: 6px 8px;
+    font-size: 9px;
+  }
+
+  .os-controls {
+    letter-spacing: 2px;
+  }
+
+  .logo-grid {
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .contact-list li {
+    font-size: 11px;
   }
 }
 
@@ -416,3 +440,18 @@ body {
 .lightbox-close:focus {
   color: var(--accent-yellow);
 }
+
+/* Editable and Window States */
+.os-window.maximized {
+  resize: none !important;
+  border-radius: 0;
+}
+
+.ctrl-min, .ctrl-max, .ctrl-close {
+  display: inline-block;
+  padding: 0 3px;
+  transition: color 0.2s;
+}
+.ctrl-min:hover { color: #ffbd2e; }
+.ctrl-max:hover { color: #27c93f; }
+.ctrl-close:hover { color: #ff5f56; }
