@@ -198,6 +198,7 @@ body {
   display: flex;
   gap: 12px;
   font-size: 1.8rem;
+  flex-wrap: wrap;
 }
 .logo-grid i {
   transition: transform 0.2s;
@@ -348,6 +349,32 @@ body {
 @media (max-width: 768px) {
   .desktop-container {
     grid-template-columns: 1fr;
+    padding: 1.5rem 1rem;
+  }
+
+  .project-item {
+    flex-direction: column-reverse;
+  }
+
+  .project-img {
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-name {
+    font-size: 2.2rem;
+  }
+
+  .cert-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .os-content {
+    padding: 1rem;
   }
 }
 
